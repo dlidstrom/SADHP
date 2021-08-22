@@ -1,0 +1,47 @@
+
+To use SADHP for disassembling HP48 ROM you need to have a ROM dump.
+SADHP assumes the ROM dump is a file containing 1 nibble of data for each
+byte. If you have a pre-existing ROM dump but which contains 2 nibbles of
+data for each byte then modify sport.c to ignore the stripping of the leading
+16 nibbles and use the it to get a valid dump for SADHP. Else follow below
+instructions.
+
+
+Dump alternative 1:
+
+   On your HP48 KGET (or type in) the DUMP program included in
+Dump.RPL. The checksum should be # 5149h and the size 72. This program
+takes two arguments: start and end addresses. It will dump memory,
+using the PEEK program posted Mar 16, 1990 by Alonzo Gariepy. Make
+sure to set the word size to 64 first, with `64 STWS'. Direct I/O to
+WIRE, make sure your computer is set to capture the dump. Hook up your
+HP48, and type in #0h #6FFF0h DUMP. DUMP will continually display the
+currect dump address in the top left corner of the display, which will
+otherwise remain blank apart from the menu.
+
+   DUMP will take a long time. The the entire ROM dump is about 450
+kilobytes - so try and use as high speed as possible. 
+
+   The utility dump2core will convert your dump to a core file named
+.core, which is what the disassembler will be looking for. It reads
+the dump from standad input, and overwrites .core if it exists;
+otherwise a new one will be created. 
+
+[Note: the dump consists of records of two lines each. The first is
+the address, the second the data as returned by PEEK. Dump2core
+ignores the address part, it's included only to serve as a reference
+for you, to allow you to retransmit smaller portions, should it prove
+necessary. You are recommended to verify that the dump is correct; the
+following command will list all clobbered lines, if any, along with
+their line numbers:
+
+		grep -vn '^# [0-9A-F]+h$' romdump                       ]
+
+
+Dump alternative 2:
+
+Enter memory scanner mode (thus this method does not work for G/GX). Hook up
+you HP48 to your computer, and make sure the HP48 output is captured in a
+file. Use the scanner to continuously dump 00000-7FFFF by first pressing
+ENTER followed by / and then keep pressing SPC until done.
+

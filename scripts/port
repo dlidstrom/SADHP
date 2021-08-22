@@ -1,0 +1,23 @@
+#! /bin/sh
+SRC=$HOME/Hp/Sad/DisAss
+DST=$HOME/Hp/Sad
+
+cp $1 $DST/port.bin
+# Set formats
+if test -w $DST/.formats1 ; then rm $DST/.formats1
+fi
+if test -r $SRC/$1.f ; then cp $SRC/$1.f $DST/.formats1
+                       else cp $SRC/stdformats $DST/.formats1
+fi
+# Set symbols
+if test -w $DST/.symbols1 ; then rm $DST/.symbols1
+fi
+if test -r $SRC/$1.s ; then cp $SRC/$1.s $DST/.symbols1
+fi
+# Set comments
+if test -w $DST/.comments1 ; then rm $DST/.comments1
+fi
+if test -r $SRC/$1.c ; then cp $SRC/$1.c $DST/.comments1
+fi
+cd $DST
+sport

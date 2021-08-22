@@ -1,0 +1,139 @@
+
+This is SADHP 1.00. Modifications to SAD 1.03:
+- HP mnemonics
+- port memory with formats and comments (+ sport as a primitive tool)
+- Revised standard .formats and .symbols and .macros based on information in
+  entries.all (Usually at seq.uncwil.edu:/hp48/hardware/entries.tar.Z)
+- Library link table is scanned for marking labels. No hash table scanning yet.
+
+
+This is SADHP 1.01. Modifications to SADHP 1.00
+- Revised rpl disassembly, rpl prologs now have default disassemblys that can
+  be overridden with .macros
+- Added .symbols1, .symbols2, .formats1 and .formats2
+- New option -G to hinder grob drawing
+- Global labels are now preferred over local ones
+- Revised some formats declarations + added new ones
+- Fixed GOYES and GOSBVL disassembly
+- Fixed disassembly of 81* instructions
+- Changed usage of PTR in disassembly
+- Reprogrammed library disassembling, hash table is now scanned for labels
+
+
+This is SADHP 1.02. Modifications to SADHP 1.01
+- Fixed disassembly of tagged objects
+- Fixed disassembly of 9* A* and B* instructions
+- Fixed disassembly of invalid strings, nullgrobs and null strings
+- Fixed disassembly of ?ST=0 and ?ST=1 instructions
+- Fixed nibb data disassembling for structures where lookahead is used
+- Fixed detecting end of file (caused system dependant errors)
+- Added ROMPTR header detection (during rpl disassembly only)
+- Added ROMPTR naming system to disassembly & .symbols file
+- d option now lists possible ROMPTR table too if C option is used
+- added M option
+- Added ENDCODE 'labels' to keep track of code objects embedded in code objects
+
+
+This is SADHP 1.03. Modifications to SADHP 1.02
+- Added hash/link table disassembly (formats 'h' and 'l')
+  SAD autoformats hash/link tables when disassembling library header
+- Added property comments
+- Added recognition for end of machine language (some rpl prologs)
+- Fixed -s option disassembly (CON(5) statements in expressions)
+- Fixed disassembly of backup objects (+libdat and other similar obs)
+- Added option -e to disassemble entries in .symbols
+- Added possible lenght of entry disassembly
+- Fixed major comment indentation.
+- Added self-corrective indentation at composite start/end points
+- Changed commenting style for unsupported entries
+- Added more comments for jumps
+- Fixed GOSUB detection for GOSUB: and GOTO: words
+- Fixed disassembly of NOP instructions
+- Changed -g to -L (no local symbols)
+- Added -g to draw grob after source lines. Implies user has no screen resize
+  features and draws max 68 pixels on each line (17 nibbles)
+- Added error detection for a missing formats file. Caused core dumps.
+
+
+This is SADHP 1.04. Modifications to SADHP 1.03
+- Fixed romptr header disassembly
+- Modified LC(n) and LA(n) disassembly to avoid unnecessary labels due to
+  loading constants. Now only LC(5) and LA(5) create labels.
+- Fixed -e option to error if symbol value is a rom pointer definition.
+- a option forces tracking of current mode to print out ASSEMBLE and RPL
+  at correct locations
+- Revised label printing to use code/rpl format to avoid unnecessary
+  ASSEMBLE-RPL pairs. Mode change is printed between major comments and
+  labels, except if the only label is a local one. This choice gives the
+  'natural' order for data disassembly where offsets are used.
+- Removed CODE lenght from disassembly. Fixed ENDCODE location.
+  CODE now displays lenght in comment field, not REL statement
+- Added option -A. Now the source is a big mess..
+  Specially treated:
+	- Grobs drawn after source
+	- Arrays in rplcomp format
+	- rpl lines collected, macros %e and %n cut lines
+	- Comments off, NULLNAME and xNAME used
+	- Only prop data is printed before xNAMEs
+	- Library header my own style
+	- ROMPTR calls labeled according to NULLNAME/xNAME definitions
+	- Link & hash tables not disassembled if in library mode
+	- Only unsupported words given for -d
+- Changed names given from xHASH,   xMESG,  xLINK,   xCONFIG
+                        to LibHash, LibMsg, LibLink, LibCfg
+- Added %n macro to force newline
+- Added %N macro to force newline before & after word (= %n%0e )
+- Added %e macro for allowing W words on the same line (after current entry)
+- Added %E macro for dispatch structures W = words on line, A = max lines
+  No nesting to previous composite levels :(
+  But luckily dispatchers usually have same macros :)
+- Fixed xNAME declarations to remove leading 'x' from names
+- Fixed real number disassembly causing 'A' to appear in negative exponents.
+- Fixed LA() disassembly
+- Fixed xTITLE disassembly to match RPL++ source (No delimiters around title)
+- Changed null string disassembly to $ "" from NIBHEX sequence
+- Added 'A' format to mark ascii lines ending in newline or \00.
+  Width means maximum lenght of line, default is 40. Strings longer than 80
+  chars are printed with this method to get better looks.
+- Fixed bug in adding auto formats that caused overriding .formats
+- Fixed separator line printing
+- Fixed handling of suspected references
+- Added GX support via -X option or .core recognition
+- Added skipob() to improve -e option
+- Added BSS statement and automatic recognition for it in rpl mode
+- Changed ABS statement to appear only if -a or -A was specified
+- Removed xcom, xsym, sadfmt and sad.el, splitted sad.c
+
+This is SADHP 1.05. Modifications to SADHP 1.04
+- Added format 'L' for ROM resident libraries
+- Changed LibHash etc to LibHash<libnum>
+- Changed ROMPTR disassembly in arrays to use CON(6)
+- Changed symbols, comments & xref output slightly
+- Added xfmt, xcom, xsym, sad.el (Do not modify sad.el!!)
+- Added disassembler for linked arrays
+- Fixed LCHEX and LAHEX disassembly (amazingly nobody noticed the hxs string
+  was reversed...)
+- Fixed 'L' disassembly not to autoformat a CRC to the end
+- Fixed xcom, xsym, sad.el
+- Fixed a bug in comment output with -A option that caused rpl to be printed
+  after the comment
+- Fixed DupAndThen special prolog recognition
+- Removed option -o to get dataoffsets
+- Added recognition for patterns "A=PC LC(5) offset" and "C=PC  LA(5) offset"
+  to get labels for data/code
+
+This is SADHP 1.06. Modifications to SADHP 1.05
+- Changed -A mode to use the tabulator in code disassembly
+- Improved grob output for 'g' format character
+- Improvement comment handling for essential info (like below)
+- Added LCSTR/LASTR comments when ascii arg is suspected
+
+This is SADHP 1.07. Modifications to SADHP 1.06
+- Started HP49G support
+- Added Flashptr support "FLASHPTR x y"
+
+This is SADHP 1.08. Modifications to SADHP 1.07
+- Changed Flashptr output from FLASHPTR to FPTR
+- Fixed a bug in REL(x) output when negative offset is used
+- Added -8 option for forcing HP48 disassembly
+

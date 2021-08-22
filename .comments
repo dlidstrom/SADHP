@@ -1,0 +1,52 @@
+00000=Probable return stack overflow. Warmstart with WSLOG entry 3
+0000F=Interrupt routine
+00100=3 nibs for display offset (scrolling), DON=Display ON
+00100=Display bit offset and DON [DON OFF2 OFF1 OFF0]
+00101=Contrast Control [CON3 CON2 CON1 CON0]
+00101=Higher value = darker screen
+00102=Display test [VDIG LID TRIM CON4] [LRT LRTD LRTC BIN]
+00102=Normally zeros
+00104=16 bit hardware CRC (104-107) (X^16+X^12+X^5+1)
+00104=crc = ( crc >> 4 ) ^ ( ( ( crc ^ nib ) & 0x000F )* 0x1081 );
+00108=Low power registers (108-109)
+00108=LowBat(2) LowBat(1) LowBat(S) VeryLowBat
+00108=[LB2 LB1 LB0 VLBI] (read only)
+00109=[ELBI EVLBI GRST RST] (read/write)
+0010A=Mode Register (read-only)
+0010B=Annunciator control [LA4 LA3 LA2 LA1] = [ alarm alpha -> <- ]
+0010C=Annunciator control [AON XTRA LA6 LA5] = [ Anns_ON? XTRA io busy]
+0010D=3 bits = {1200 1920 2400 3840 4800 7680 9600 15360}
+0010D=Serial baud rate [UCK BD2 BD1 BD0] (bit 3 is read-only)
+0010E=Enable Card Det., Run Card Det., Set Module Pulled, Software interrupt
+0010E=[ECDT RCDT SMP SWINT] (read/write)
+0010F=[P2W P1W P2C P1C] (read-only) Port 2 writable .. Port 1 inserted 
+00110=Serial I/O Control [SON ETBE ERBF ERBZ]
+00110=Serial On, Interrupt On Recv.Buf.Empty, Full, Buzy
+00111=Serial Receive Control/Status [RX RER RBZ RBF] (bit 3 is read-only)
+00112=Serial Transmit Control/Status [BRK LPB TBZ TBF]
+00113=Serial Clear RER (writing anything clears RER bit)
+00114=Serial Receive Buffer Register (Reading clears RBF bit)
+00114=[RX RER RBZ RBF]
+00116=Serial Transmit Buffer Register (Writing sets TBF bit)
+00118=Service Request Register (read-only)
+00118=[ISQR TSQR USRQ VSRQ] [KDN NINT2 NINT LSRQ]
+0011A=IR Control Register [IRI EIRU EIRI IRE] (bit 3 is read-only)
+0011A=IR Input, Enable IR UART mode, Enable IR Interrupt, IR Event
+0011B=Used as addressto get BASENIB from 11F to the 5th nibble
+0011C=Led Control Register [LED ELBE LBZ LBF] (Setting LED is draining)
+0011D=Led Buffer Register [0 0 0 LBO] (bits 1-3 read zero)
+0011E=Scratch pad (11F is BASEIB, 7 or F for base memory)
+00120=Display Start Address (write only)
+00120=bit 0 is ignored (display must start on byte boundary)
+00125=Display Line offset (write only) (no of bytes skipped after each line)
+00125=MSG sign extended
+00128=Display Line Counter and miscellaneous (28-29)
+00128=Line counter 6 bits -> max = 2^6-1 = 63 = disp height
+00128=Normally has 55 -> Menu starts at display row 56
+00128=[LC3 LC2 LC1 LC0] [DA19 M32 LC5 LC4]
+0012E=TIMER1 Control [SRQ WKE INT XTRA]
+0012F=TIMER2 Control [SRQ WKE INT RUN]
+00130=Display Secondary Start Address (write only) (30-34)
+00130=Menu Display Address, no line offsets
+00137=Decremented 16 times/s
+00138=hardware timer (38-3F), decremented 8192 times/s

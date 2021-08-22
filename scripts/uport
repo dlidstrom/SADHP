@@ -1,0 +1,11 @@
+#! /bin/sh
+DST=$HOME/Hp/Sad/DisAss
+SRC=$HOME/Hp/Sad
+
+# Set formats
+if test -r $SRC/.formats1 ; then cp $SRC/.formats1 $DST/$1.f
+fi
+if test -r $SRC/.symbols1 ; then cp $SRC/.symbols1 $DST/$1.s
+fi
+if test -r $SRC/.comments1 ; then cp $SRC/.symbols1 $DST/$1.c
+fi

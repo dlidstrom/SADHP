@@ -1,0 +1,8 @@
+%%HP: T(3)A(R)F(.);
+\<< CLLCD B\->R SWAP
+B\->R SWAP
+  FOR A A R\->B DUP
+PR1 1 DISP PEEK PR1
+DROP 16
+  STEP
+\>>

@@ -1,0 +1,5 @@
+#!/bin/csh -f
+
+set noglob
+cd $HOME/Hp/Sad
+$HOME/Hp/Sad/Source/xsym $argv
